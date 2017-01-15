@@ -1,0 +1,44 @@
+{"frames": [
+
+{
+	"filename": "background.png",
+	"frame": {"x":1,"y":1,"w":800,"h":450},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":800,"h":450},
+	"sourceSize": {"w":800,"h":450}
+},
+{
+	"filename": "gameDone.png",
+	"frame": {"x":1,"y":453,"w":521,"h":209},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":521,"h":209},
+	"sourceSize": {"w":521,"h":209}
+},
+{
+	"filename": "trashClose.png",
+	"frame": {"x":524,"y":453,"w":208,"h":338},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":208,"h":338},
+	"sourceSize": {"w":208,"h":338}
+},
+{
+	"filename": "trashOpen.png",
+	"frame": {"x":734,"y":453,"w":208,"h":338},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":208,"h":338},
+	"sourceSize": {"w":208,"h":338}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "basic.png",
+	"format": "RGBA8888",
+	"size": {"w":943,"h":792},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:96f39b0be35a540c31088a78b20ea54f:ac39407574204341203969d59ab342aa:69ada9eb73f403d1ddad83c3ffb704d6$"
+}
+}

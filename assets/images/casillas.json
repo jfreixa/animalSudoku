@@ -1,0 +1,52 @@
+{"frames": [
+
+{
+	"filename": "animal0.png",
+	"frame": {"x":1,"y":1,"w":833,"h":833},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":833,"h":833},
+	"sourceSize": {"w":833,"h":833}
+},
+{
+	"filename": "animal1.png",
+	"frame": {"x":1,"y":836,"w":833,"h":833},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":833,"h":833},
+	"sourceSize": {"w":833,"h":833}
+},
+{
+	"filename": "animal2.png",
+	"frame": {"x":836,"y":1,"w":833,"h":833},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":833,"h":833},
+	"sourceSize": {"w":833,"h":833}
+},
+{
+	"filename": "animal3.png",
+	"frame": {"x":836,"y":836,"w":833,"h":833},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":833,"h":833},
+	"sourceSize": {"w":833,"h":833}
+},
+{
+	"filename": "animal4.png",
+	"frame": {"x":1671,"y":1,"w":833,"h":833},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":833,"h":833},
+	"sourceSize": {"w":833,"h":833}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "casillas.png",
+	"format": "RGBA8888",
+	"size": {"w":2505,"h":1670},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:6e1b56cdfec68c6bad8286910071d6df:d80833be902d950cd62352cd42ae351e:b575665245ee94f9e3cd332d3a3dfbfa$"
+}
+}
