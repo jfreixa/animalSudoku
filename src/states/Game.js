@@ -2,17 +2,18 @@
 import Phaser from 'phaser'
 import Tile from '../sprites/Tile'
 import DraggableTile from '../sprites/DraggableTile'
-import Thrash from '../sprites/Thrash'
-import Background from '../sprites/Background'
+import Thrash from '../sprites/Trash'
+// import Background from '../sprites/Background'
 
 export default class Game extends Phaser.State {
   create () {
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
-    this.tileSize = 94
+    this.tileSize = 180
+    this.spaceBetween = 5
     this.sudokuProblem = [
-      [4, 3, 1, 2],
-      [2, 0, 3, 4],
-      [0, 4, 2, 1],
+      [0, 3, 1, 0],
+      [2, 1, 3, 4],
+      [0, 4, 0, 1],
       [1, 2, 4, 3]
     ]
     this.sudokuComplete = [
@@ -21,40 +22,57 @@ export default class Game extends Phaser.State {
       [3, 4, 2, 1],
       [1, 2, 4, 3]
     ]
-    this.draggablePositions = []
-    this.background = new Background({ game: this.game })
-    this.thrash = new Thrash({
-      game: this.game
-    })
+    // this.background = new Background({ game: this.game })
 
-    this.placeTiles()
-    this.insertDraggableTiles()
+    this.thrash = new Thrash({ game: this.game })
+
+    this.placeStaticTiles()
+    this.placeDraggableTiles()
     this.draggablePositions.forEach(tile => {
       this.draggableTiles.forEach(draggabletile => {
         draggabletile.events.onDragStop.add((currentSprite) => {
-          this.stopDrag(currentSprite, tile)
+          this.onStopDrag(currentSprite, tile)
         }, this)
       })
       tile.events.onDragStop.add((currentSprite) => {
         this.game.physics.arcade.overlap(currentSprite, this.thrash, () => this.removeTile(tile))
+        currentSprite.goToOriginalPosition()
       }, this)
+      tile.events.onDragStart.add(this.dragStart, this)
+    })
+    this.draggableTiles.forEach(tile => {
+      tile.events.onDragStart.add(this.dragStart, this)
     })
   }
-  placeTiles () {
-    let numCols = 4
-    let numRows = 4
-    let spaceBetween = 1
+
+  dragStart (currentSprite) {
+    currentSprite.bringToTop()
+  }
+
+  placeStaticTiles () {
+    let numCols = this.sudokuProblem.length
+    let numRows = this.sudokuProblem[0].length
     let leftSpace = (this.game.width - (numCols * this.tileSize) - ((numCols - 1))) / 2
     let topSpace = (this.game.height - (numRows * this.tileSize) - ((numRows - 1))) / 2
+
+    this.draggablePositions = []
+
     this.actualSudoku = this.sudokuProblem.map((current, index1) => {
       return current.map((current, index2) => {
         let position = {
-          x: leftSpace + index1 * this.tileSize + spaceBetween * index1,
-          y: topSpace + index2 * this.tileSize + spaceBetween * index2
+          x: leftSpace + index1 * this.tileSize + this.spaceBetween * index1,
+          y: topSpace + index2 * this.tileSize + this.spaceBetween * index2
         }
         let sprite
+        sprite = new Tile({
+          game: this.game,
+          x: position.x,
+          y: position.y,
+          tileSize: this.tileSize,
+          frame: current
+        })
         if (current === 0) {
-          sprite = this.draggableTile = new DraggableTile({
+          sprite = new DraggableTile({
             game: this.game,
             x: position.x,
             y: position.y,
@@ -63,49 +81,38 @@ export default class Game extends Phaser.State {
             drag: false
           })
           this.draggablePositions.push(sprite)
-        } else {
-          sprite = new Tile({
-            game: this.game,
-            x: position.x,
-            y: position.y,
-            tileSize: this.tileSize,
-            frame: current
-          })
         }
         return sprite
       })
     })
   }
-  stopDrag (currentSprite, endSprite) {
-    if (!this.game.physics.arcade.overlap(currentSprite, endSprite, () => this.changeSprite(currentSprite, endSprite))) {
-      currentSprite.goToOriginalPosition()
-    }
+  onStopDrag (currentSprite, endSprite) {
+    this.game.physics.arcade.overlap(currentSprite, endSprite, () => this.changeSprite(currentSprite, endSprite))
+    currentSprite.goToOriginalPosition()
   }
 
   changeSprite (currentSprite, endSprite) {
     if (endSprite.frame === 0) {
       endSprite.frame = currentSprite.frame
       endSprite.input.draggable = true
-      this.win()
+      let actual = this.actualSudoku.map(line => line.map(object => object.frame)).join()
+      if (actual === this.sudokuComplete.join()) {
+        this.state.start('Win')
+      }
     }
   }
 
-  win () {
-    let actual = this.actualSudoku.map(line => line.map(object => object.frame)).join()
-    if (actual === this.sudokuComplete.join()) {
-      console.log('win')
-    }
-  }
-
-  insertDraggableTiles () {
-    let arr = [1, 2, 3, 4]
+  placeDraggableTiles () {
+    let numRows = this.sudokuProblem[0].length
+    let topSpace = (this.game.height - (numRows * this.tileSize) - ((numRows - 1))) / 2
+    let animals = [1, 2, 3, 4]
     this.draggableTiles = []
-    arr.map(number => {
+    animals.map(number => {
       this.draggableTiles.push(
         new DraggableTile({
           game: this.game,
-          x: 0,
-          y: -100 + (this.tileSize * number),
+          x: 50,
+          y: topSpace + (number - 1) * this.tileSize + this.spaceBetween * (number - 1),
           tileSize: this.tileSize,
           frame: number,
           drag: true
@@ -117,6 +124,5 @@ export default class Game extends Phaser.State {
   removeTile (currentSprite) {
     currentSprite.frame = 0
     currentSprite.input.draggable = false
-    currentSprite.goToOriginalPosition()
   }
 }

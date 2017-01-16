@@ -2,7 +2,7 @@ import Phaser from 'phaser'
 
 export default class extends Phaser.Sprite {
   constructor ({ game }) {
-    super(game, game.width, game.height, 'basic', 'trashOpen.png')
+    super(game, game.width - 50, game.height + 50, 'basic', 'trashOpen.png')
     this.game = game
     this.anchor.set(1)
     this.game.physics.arcade.enable(this)
