@@ -1,8 +1,8 @@
 {
-  "name": "PhaserES6Webpack",
+  "name": "AnimalsSudoku",
   "version": "1.0.0",
   "description": "",
-  "author": "leandro cabrera <leandcabrera@gmail.com>",
+  "author": "jordi freixa <jordi.freixa11@gmail.com>",
   "main": "index.js",
   "scripts": {
     "dev": "webpack",
